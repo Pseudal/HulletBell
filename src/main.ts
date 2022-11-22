@@ -3,6 +3,10 @@ import { printConsole } from "isaacscript-common";
 import { configHB } from "./script/Config";
 import { ModConfig } from "./script/modConfigMenu";
 import * as json from "json";
+declare const CDComp : unknown | undefined;
+interface CDReturn {
+  Return: int | undefined;
+}
 let focusSprite = Sprite()
 focusSprite.Load("gfx/Hitbox.anm2", true)
 focusSprite.Color = Color(1,1,1,0.75);
@@ -17,20 +21,39 @@ const MOD_NAME = "Bullet Hitbox";
 main();
 
 function ShowProjectileHitbox(tearEnt: EntityProjectile){
-  printConsole(`${tearEnt.CurvingStrength}`)
-  0
-  if(configHB.Mode == 2){
-    if((tearEnt.Height <= 0 && tearEnt.Height > -200) && tearEnt.CurvingStrength > 0.01){
-      enemyTearHitbox.Scale = Vector(tearEnt.Size/12,tearEnt.Size/12);
-      enemyTearHitbox.Render(Isaac.WorldToScreen(tearEnt.Position),Vector(0,0));
-    }
-  }else{
-    if(tearEnt.Height <= 0 && tearEnt.Height > -200){
-      enemyTearHitbox.Scale = Vector(tearEnt.Size/12,tearEnt.Size/12);
-      enemyTearHitbox.Render(Isaac.WorldToScreen(tearEnt.Position),Vector(0,0));
+  let data = tearEnt.GetData() as unknown as CDReturn
+  printConsole(`${tearEnt.CurvingStrength},size : ${tearEnt.Size}, multi :${tearEnt.SizeMulti}, sprite :${tearEnt.Scale}`)
+  if(CDComp !== undefined){
+    printConsole(`${CDComp.All}`)
+    if(CDComp.All == true){
+      if(tearEnt.Height < -200 && data.Return !== 1){
+        data.Return = 1
+      }
     }
   }
-
+  if(configHB.Mode == 2){
+    if((tearEnt.Height <= 0 && tearEnt.Height > -200) && tearEnt.CurvingStrength > 0.01 && data.Return !== 1){
+      enemyTearHitbox.Scale = Vector((5/13)*tearEnt.Scale,(5/13)*tearEnt.Scale);
+      enemyTearHitbox.Render(Isaac.WorldToScreen(tearEnt.Position),Vector(0,0));
+      // if(tearEnt.Height < -70){
+      //   enemyTearHitbox.Color = Color(1,250,1,0.75)
+      // }
+      // else{
+      //   enemyTearHitbox.Color = Color(1,1,1,0.75);
+      // }
+    }
+  }else{
+    if(tearEnt.Height <= 0 && tearEnt.Height > -200 && data.Return !== 1){
+      enemyTearHitbox.Scale = Vector((tearEnt.Size/13)*tearEnt.Scale,(tearEnt.Size/13)*tearEnt.Scale);
+      enemyTearHitbox.Render(Isaac.WorldToScreen(tearEnt.Position),Vector(0,0));
+      // if(tearEnt.Height < -70){
+      //   enemyTearHitbox.Color = Color(1,250,1,0.75)
+      // }
+      // else{
+      //   enemyTearHitbox.Color = Color(1,1,1,0.75);
+      // }
+    }
+  }
 }
 function ShowPlayerHitbox(Player:EntityPlayer) {
   if(configHB.Player == true){
