@@ -44,7 +44,7 @@ export function ModConfig(configHB) {
       OnChange(IsOn) {
         configHB.Player = IsOn as boolean;
       },
-      Info: [`Dr Foetus have a danger zone ?`],
+      Info: [`displays the player's hitbox`],
     });
 
     function addItem(entity, type, name, desc) {
@@ -66,7 +66,8 @@ export function ModConfig(configHB) {
         Info: [`${desc}`],
       });
     }
-//    addItem("Ipecac", "Mains", "Ipecac", "Show Ipecac zone");
+    addItem("CDPriority", "Mains", "ComingDown! priority", "If you have 'Coming down!' should the mod prioritize the coming down effect? ");
+    addItem("ChangeColor", "Mains", "Change Color", "The colors of the projectiles change according to the height. Green if too high to hit you. ");
 
 
     ModConfigMenu.AddSpace("Bullet Hitbox!", "ChangeLog");

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <metadata>
-  <name>hulletbell</name>
-  <directory>hulletbell</directory>
-  <description>hulletbell is a currently a work in progress.</description>
+  <name>Bullet Hitbox</name>
+  <directory>Bullet_Hitbox</directory>
+  <description>
+    "What's next, watch out, tears!"? Well...
+
+    This mod is a modification of the "Hullet bell" mod from Anumania without the original mod item, and the effect enabled, by default.
+
+    This mod does exactly what the title says, it adds a little marker "supposed" to be the actual hitbox of the enemy projectiles.
+    Allowing for easier information acquisition and dodging.
+
+    This is only effective on projectiles! not entities.
+
+    Mod compatible with ModConfigMenu and adds some options, like disabling the player's hitbox.
+  </description>
   <version>1.0</version>
   <visibility />
 </metadata>
